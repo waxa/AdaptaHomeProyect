@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+  </head>
+  <body ng-app="starter">
+
+    <!-- ion-android-settings  ion-arrow-left-a -->
+    <ion-pane ng-controller="RaspController as rasp">
+      <ion-header-bar class="bar bar-calm">
+        <button class="button icon-left ion-chevron-left button-clear button-dark"
+          ng-hide="rasp.isLogin" ng-click="rasp.back()" ng-hide="rasp.isLoading"> 
+        </button>
+        <h1 class="title">AdaptaHome</h1>
+        <button class="button icon-right ion-android-settings button-clear button-dark"
+          ng-show="rasp.isLista" ng-click="rasp.toRegRasp()"> 
+        </button>
+      </ion-header-bar>          
+
+    <ion-content scroll="false" padding="true" ng-show="rasp.isLoading">      
+      <img ng-src="img/ADAPTSHOMELETRAS.jpg" 
+      style="display: block; margin : 0 auto; wigth : 100%; min-width : 100%; height : 100%; min-height : 100%">
+    </ion-content>
+
+      <ion-content scroll="false" padding="true" ng-show="rasp.isLogin">
+        <form style="">
+          <ion-list style="">
+            <label style="" class="item item-input">
+              <span class="input-label">Username</span>
+              <input placeholder="" type="text">
+            </label>
+            <label style="" class="item item-input">
+              <span class="input-label">Password</span>
+              <input placeholder="" type="password">
+            </label>
+          </ion-list>
+          <div style="height: 40px;" class="spacer"></div>
+          <a style="" class="button button-stable button-block" href="#/banco" ng-click="rasp.toLista()">Log in</a>
+          <a style="" class="button button-positive button-clear button-block" href="#/signup" ng-click="rasp.toRegUser()">Or create an account</a>
+        </form>
+      </ion-content>
+
+      <ion-content scroll="false" padding="true" ng-show="rasp.isRegUser">
+      <form style="">
+        <ion-list style="">
+          <label style="" class="item item-input">
+            <span class="input-label">Name</span>
+            <input placeholder="" type="text">
+          </label>
+          <label style="" class="item item-input">
+            <span class="input-label">Username</span>
+            <input placeholder="" type="text">
+          </label>
+          <label style="" class="item item-input">
+            <span class="input-label">Password</span>
+            <input placeholder="" type="text">
+          </label>
+          </ion-list>
+          <a style="" class="button button-stable button-block" href="#/banco" ng-click="rasp.back()">Sign up</a>
+        </form>
+      </ion-content>
+      
+      <ion-content padding="true" scroll="false" class="has-header" ng-show="rasp.isLista">
+        <div class="button-bar"></div>
+        <div class="button-bar"></div>
+          <ion-list>
+            <ion-item ng-click="rasp.toButtons()">RP1</ion-item>
+            <ion-item>Control persianas</ion-item>
+            <ion-item>Abrir puerta</ion-item>
+          </ion-list>
+        <div class="spacer" style="width: 300px; height: 44px;"></div>
+        <!--button class="button button-positive button-block">Añadir nueva</button-->
+      </ion-content>
+
+      <ion-content scroll="false" padding="true" ng-show="rasp.isButton">
+        <div style="min-height:100%; height: 100%">
+          <div class="row" style="min-height:50%; height: 50%" >
+            <button class="col col-50 button" style="margin: 3px" 
+            ng-click="rasp.setValue(rasp.reles[0])" 
+            ng-class="{ 'button-balanced' : rasp.reles[0].state, 'button-assertive' : !rasp.reles[0].state}">
+              {{rasp.reles[0].name}}
+            </button>
+            <button class="col col-50 button" style="margin: 3px" 
+            ng-click="rasp.setValue(rasp.reles[1])" 
+            ng-class="{ 'button-balanced' : rasp.reles[1].state, 'button-assertive' : !rasp.reles[1].state}">
+              {{rasp.reles[1].name}}
+            </button>
+          </div>
+          <div class="row" style="min-height:50%; height: 50%" >
+            <button class="col col-50 button" style="margin: 3px" 
+            ng-click="rasp.setValue(rasp.reles[2])" 
+            ng-class="{ 'button-balanced' : rasp.reles[2].state, 'button-assertive' : !rasp.reles[2].state}">
+              {{rasp.reles[2].name}}
+            </button>
+            <button class="col col-50 button" style="margin: 3px" 
+            ng-click="rasp.setValue(rasp.reles[3])" 
+            ng-class="{ 'button-balanced' : rasp.reles[3].state, 'button-assertive' : !rasp.reles[3].state}">
+              {{rasp.reles[3].name}}
+            </button>
+          </div>
+        </div>
+        <!--div class="list card" ng-repeat="rele in rasp.reles">
+          <ion-toggle type="checkbox" ng-model="rele.state" ng-click="rasp.setValue(rele)">{{rele.name}} </ion-toggle>
+        </div-->
+      </ion-content>
+
+      <ion-content scroll="false" padding="true" ng-show="rasp.isRegRasp">
+        <div class="button-bar"></div>
+        <form>
+          <label class="item item-input">
+            <span class="input-label">Código Raspberry Pi</span>
+            <input type="text" placeholder="Aquí tu codigo">
+          </label>
+        </form>
+        <div class="button-bar">
+          <button class="button button-positive button-block" ng-click="rasp.toLista()">Añadir</button>
+          <a href="#/login" class="button button-stable button-block" ng-click="rasp.toLista()">Cancelar</a>
+        </div>
+      </ion-content>
+    </ion-pane>
+  </body>
+</html>
